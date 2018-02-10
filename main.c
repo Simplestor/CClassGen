@@ -14,16 +14,16 @@ int strupr(char* dst,char* src)
     if(!src || !dst){
         return -EINVAL;
     }
-    while (*src != '\0'){
-        if(*src >= 'a' && *src <= 'z'){
-            *dst = (*src) - 0x20;
+    while ((*src) != '\0'){
+        if((*src) >= 'a' && (*src) <= 'z'){
+            (*dst) = (*src) - 0x20;
         }else{
-            *dst = *src;
+            (*dst) = (*src);
         }
         src++;
         dst++;
     }
-    *dst = '\0';
+    (*dst) = '\0';
     return 0;
 }
 
