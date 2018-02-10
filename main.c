@@ -48,7 +48,9 @@ int generate_h(char* name)
     sprintf(row,"%s#ifndef __%s_H__ \n","",uname);
     sprintf(row,"%s#define __%s_H__\n",row,uname);
     sprintf(row,"%s#include <stdint.h>\n",row);
+    sprintf(row,"%s#include \"list.h\"\n",row);
     sprintf(row,"%s#include \"lock.h\"\n\n",row);
+    sprintf(row,"%s#include \"wait.h\"\n\n",row);
     fwrite(row,strlen(row),1,fp);
 
     sprintf(row,"struct %s;\n\n",name);
@@ -82,7 +84,9 @@ int generate_h(char* name)
     fwrite(row,strlen(row),1,fp);
 
     sprintf(row,"%sstruct %s\n{\n","",name);
-    sprintf(row,"%s    lock_t lock;\n",row,name);
+    sprintf(row,"%s    struct list_head head;\n",row);
+    sprintf(row,"%s    wait_t wait;\n",row);
+    sprintf(row,"%s    lock_t lock;\n",row);
     sprintf(row,"%s    struct %s_operation* op;\n",row,name);
     sprintf(row,"%s    struct %s_event_action *paction[%s_EVENT_MAX];\n",row,name,uname);
     
@@ -125,7 +129,9 @@ int generate_c(char* name)
     
     sprintf(row,"%sstatic int32_t %s_init(struct %s* p%s)\n","",name,name,name);
     sprintf(row,"%s{\n",row);
+    sprintf(row,"%s    INIT_LIST_HEAD(&(p%s->head));\n",row,name);
     sprintf(row,"%s    lock_init(&(p%s->lock));\n",row,name);
+    sprintf(row,"%s    wait_init(&(p%s->wait));\n",row,name);
     sprintf(row,"%s    return 0;\n",row);
     sprintf(row,"%s}\n\n",row);
     fwrite(row,strlen(row),1,fp);
@@ -133,6 +139,7 @@ int generate_c(char* name)
     sprintf(row,"%sstatic int32_t %s_release(struct %s* p%s)\n","",name,name,name);
     sprintf(row,"%s{\n",row);
     sprintf(row,"%s    lock_destroy((&p%s->lock));\n",row,name);
+    sprintf(row,"%s    wait_destroy((&p%s->wait));\n",row,name);
     sprintf(row,"%s    return 0;\n",row);
     sprintf(row,"%s}\n\n",row);
     fwrite(row,strlen(row),1,fp);
