@@ -251,7 +251,7 @@ int generate_c(char* name)
     sprintf(row,"%s    if(p%s){\n",row,name);
     sprintf(row,"%s        p%s->op->release(p%s);\n",row,name,name);
     sprintf(row,"%s        free(p%s);\n",row,name);
-    sprintf(row,"%s    }\n",row,name,name);
+    sprintf(row,"%s    }\n",row);
     sprintf(row,"%s}\n\n",row);
     fwrite(row,strlen(row),1,fp);
 

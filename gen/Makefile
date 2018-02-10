@@ -5,12 +5,14 @@ STRIP=$(CROSS_COMPILE)strip
 
 TARGET = simple_bin
 
-CFLAGS += -g -Wall -I./common
+CFLAGS += -g -Wall
+LDFLAGS += -g
 
-LDFLAGS += -g -lpthread
+LDFLAGS += -lpthread
+CFLAGS += -I./common
 
 OBJS += main.o simple.o\
-		common/lock.o common/log.o common/wait.o
+        common/lock.o common/log.o common/wait.o
 
 all:$(TARGET)
 

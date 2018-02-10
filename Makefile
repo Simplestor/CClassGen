@@ -1,5 +1,5 @@
-CC=$(CROSS_COMPILE)gcc
-LD=$(CROSS_COMPILE)gcc
+CC=gcc
+LD=gcc
 STRIP=$(CROSS_COMPILE)strip
 
 TARGET = cgen
