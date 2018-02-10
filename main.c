@@ -59,6 +59,7 @@ int generate_h(char* name)
     sprintf(row,"%senum %s_EVENT\n","",uname);
     sprintf(row,"%s{\n",row);
     sprintf(row,"%s    %s_EVENT_NONE = 0,\n",row,uname);
+    sprintf(row,"%s    %s_EVENT_TEST,\n",row,uname);
     sprintf(row,"%s    %s_EVENT_MAX,\n",row,uname);
     sprintf(row,"%s};\n\n",row);
     fwrite(row,strlen(row),1,fp);
