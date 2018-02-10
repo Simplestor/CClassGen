@@ -262,14 +262,18 @@ int generate_c(char* name)
 
 int main(int argc,char* argv[])
 {
+    int ret;
     if(argc < 2){
         printf("Please input generate class name !\n");
         return -EINVAL;
     }
-    if(access(GENERATE_PATH,R_OK)){
-        if(mkdir(GENERATE_PATH,0777)<0){
-            printf("create %s path error\n",GENERATE_PATH);
-            return -EFAULT;
+    ret = access(GENERATE_PATH,R_OK);
+    if(ret != 0){
+        ret = mkdir(GENERATE_PATH,0777);
+        if(ret != 0){
+            printf("create %s path error, ret = %d\n",GENERATE_PATH,ret);
+            perror("error:\n");
+            return ret;
         }
     }
     if(generate_h(argv[1]) < 0){
